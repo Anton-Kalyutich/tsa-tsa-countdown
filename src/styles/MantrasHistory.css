@@ -1,0 +1,45 @@
+.mantras_table {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 85px;
+  margin-top: 65px;
+  max-width: 100%;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  color: grey;
+  width: 30%;
+  margin-bottom: 15px;
+  flex-basis: 130px;
+  border-right: 1px solid;
+  padding-right: 10px;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.cell {
+  padding-bottom: 7px;
+}
+
+.cell-spacer {
+  margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 414px) {
+  .mantras_table {
+    /* flex-direction: column; */
+    padding: 0 25px;
+    align-items: center;
+  }
+  .table {
+    width: 40%;
+    flex-basis: auto;
+    border-right: none;
+    padding-right: 0;
+  }
+}
