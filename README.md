@@ -1,5 +1,5 @@
-# Tsa-Tsa Countdown
-This repo contains a template for Diamond Way mantras counter website.
+# Tsatsas Countdown
+This repo contains a template for a Diamond Way tsatsas / mantras countdown website.
 The project also contains PWA(Progressive Web App) setup.
 
 ### To start:
