@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Confetti from "react-confetti";
+import useWindowSize from "react-use/lib/useWindowSize";
 import Header from './Components/Header.jsx';
 import TsatsasAmount from './Components/TsatsasAmount.jsx';
 import TsatsasForm from './Components/TsatsasForm.jsx';
@@ -9,9 +11,11 @@ import Loader from './Components/Loader.jsx';
 
 function App() {
   // const [data, setData] = useState([])
-  const [allTsatsas, setAllTsatsas] = useState(8000)
+  const [allTsatsas, setAllTsatsas] = useState(70)
   const [inputData, setInputData] = useState()
   const [mode, setMode] = useState()
+
+  const { width, height } = useWindowSize();
 
   // useEffect(() => {
   //   async function loadData() {
@@ -59,8 +63,11 @@ function App() {
       alert('Please add number of tsatsas you made.')
       return
     }
-
-    setAllTsatsas(allTsatsas - parseInt(inputData))
+    if (parseInt(inputData) > allTsatsas) {
+      setAllTsatsas(0)
+    } else {
+      setAllTsatsas(allTsatsas - parseInt(inputData))
+    }
 
     // fetch(process.env.REACT_APP_AWS_DYNAMODB_URI, {
     //   method: 'POST',
@@ -83,12 +90,14 @@ function App() {
       {allTsatsas >= 0 ? (
         <>
           <TsatsasAmount allTsatsas={allTsatsas} />
-          <TsatsasForm
+          
+          { allTsatsas > 0 && <TsatsasForm
             allTsatsas={allTsatsas}
             inputData={inputData}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
-          />
+          />}
+          <Confetti width={width} height={height} recycle={false} run={allTsatsas === 0} numberOfPieces={1500} />
           <Footer />
         </>
       ) : (
@@ -99,7 +108,3 @@ function App() {
 }
 
 export default App
-
-// If allTsatsas fetched equals 0 - disable submittion form
-// inputData can be greater than allTsatsas, but the number doesn't go to negative
-// When allTsatsas equals 0 show confetti

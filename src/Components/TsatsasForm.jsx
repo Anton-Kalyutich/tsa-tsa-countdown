@@ -17,7 +17,7 @@ function TsatsasForm(props) {
             onChange={handleChange}
             label="tsatsas input"
           />
-          <button type="submit" disabled={inputData>allTsatsas}>-</button>
+          <button type="submit" >-</button>
         </div>
       </form>
     </div>
