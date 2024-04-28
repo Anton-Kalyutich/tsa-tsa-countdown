@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import '../styles/MantrasForm.css'
 
 function TsatsasForm(props) {
-  const { allTsatsas, inputData, handleSubmit, handleChange } = props
+  const { inputData, handleSubmit, handleChange } = props
   console.log(inputData)
   return (
     <div className="mantras-form-container">

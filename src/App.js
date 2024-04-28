@@ -10,36 +10,24 @@ import Footer from './Components/Footer.jsx';
 import Loader from './Components/Loader.jsx';
 
 function App() {
-  // const [data, setData] = useState([])
-  const [allTsatsas, setAllTsatsas] = useState(70)
+  const [allTsatsas, setAllTsatsas] = useState()
   const [inputData, setInputData] = useState()
   const [mode, setMode] = useState()
 
   const { width, height } = useWindowSize();
 
-  // useEffect(() => {
-  //   async function loadData() {
-  //     try {
-  //       let mantrasAmount = { mantras_count: 0 }
-  //       let sortedData = []
-  //       const response = await fetch(process.env.REACT_APP_AWS_DYNAMODB_URI)
-  //       const resJson = await response.json()
-  //       if (resJson.length) {
-  //         mantrasAmount = resJson.reduce((a, b) => ({
-  //           mantras_count: a.mantras_count + b.mantras_count
-  //         }))
-  //         sortedData = resJson.sort(function (a, b) {
-  //           return new Date(b.date_created) - new Date(a.date_created)
-  //         })
-  //       }
-  //       setData(sortedData)
-  //       setAllMantras(mantrasAmount)
-  //     } catch (err) {
-  //       console.error('Error fetching:', err)
-  //     }
-  //   }
-  //   loadData()
-  // }, [])
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const response = await fetch(process.env.REACT_APP_AWS_DYNAMODB_URI)
+        const resJson = await response.json()
+        setAllTsatsas(resJson[0].mantras_count)
+      } catch (err) {
+        console.error('Error fetching:', err)
+      }
+    }
+    loadData()
+  }, [])
 
   useEffect(() => {
     const darkMode = window.matchMedia('(prefers-color-scheme: dark)')
@@ -58,24 +46,30 @@ function App() {
   }
 
   const handleSubmit = event => {
+    let finalCount
     event.preventDefault()
     if (inputData === '' || inputData === undefined) {
       alert('Please add number of tsatsas you made.')
       return
     }
     if (parseInt(inputData) > allTsatsas) {
-      setAllTsatsas(0)
+      finalCount = 0
     } else {
-      setAllTsatsas(allTsatsas - parseInt(inputData))
+      finalCount = allTsatsas - parseInt(inputData)
     }
 
-    // fetch(process.env.REACT_APP_AWS_DYNAMODB_URI, {
-    //   method: 'POST',
-    //   body: JSON.stringify(inputData),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // }).catch(err => console.log('Error:', err))
+    setAllTsatsas(finalCount)
+
+    fetch(process.env.REACT_APP_AWS_DYNAMODB_URI, {
+      method: 'PUT',
+      body: JSON.stringify({
+        mantras_count: finalCount,
+        mantra_id: "07-06-2023-stupa-nrc"
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).catch(err => console.log('Error:', err))
 
     setInputData()
   }

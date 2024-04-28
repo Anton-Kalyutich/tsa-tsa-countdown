@@ -8,8 +8,8 @@ export default function Footer() {
         DWB
       </a>{' '}
       •{' '}
-      <a href="https://www.diamondway.org/your-center" target="_new">
-        --Your local center--
+      <a href="https://www.diamondway.org/nrcstupa/" target="_new">
+        NRC Stupa of Complete Victory
       </a>{' '}
       • 2024
     </div>

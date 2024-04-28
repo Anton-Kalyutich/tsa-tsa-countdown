@@ -7,10 +7,10 @@ const MantrasIntro = () => {
 
   return (
     <div className="intro-container">
-      <p className="intro_title">-- NAME OF THE PROJECT --</p>
+      <p className="intro_title">NRC STUPA OF COMPLETE VICTORY</p>
       {/* if you want to have an image uncomment below */}
       {/* <img src={Logo} alt="Logo" className="intro_image" /> */}
-      <p className="intro_text">
+      {/* <p className="intro_text">
         Whether you do a formal Guru Yoga session or are doing mantras while
         walking in the park...if you are dedicating them to{' '}
         <a href="https://www.diamondway.org/your-project/" target="_new">
@@ -24,7 +24,7 @@ const MantrasIntro = () => {
         2021 and see how soon we can accomplish <b>-- NUMBER OF MANTRAS--</b>.
         Primarily we wish to build up Karmapa&apos;s power-field and establish
         the finest conditions for the this project&apos;s success.
-      </p>
+      </p> */}
     </div>
   )
 }

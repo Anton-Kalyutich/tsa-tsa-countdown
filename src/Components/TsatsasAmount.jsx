@@ -13,17 +13,17 @@ function TsatsasAmount(props) {
   const formatValue = value => numberWithCommas(Number(value).toFixed())
 
   return (
-    <div className="mantras_count_container">
-      <p className="mantras_count">
-        <AnimatedNumber
-          value={allTsatsas}
-          formatValue={formatValue}
-          duration={1000}
-        />
-      </p>
-      <p className="mantras_count_text">Tsatsas Left to Make</p>
-    </div>
-  )
+      <div className="mantras_count_container">
+        <p className="mantras_count">
+          <AnimatedNumber
+            value={allTsatsas}
+            formatValue={formatValue}
+            duration={1000}
+          />
+        </p>
+        <p className="mantras_count_text">{allTsatsas > 0 ? "Tsatsas Left to Make" : "All Tsatsas Made"}</p>
+      </div>
+    )
 }
 
 TsatsasAmount.propTypes = {
