@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/Loader.css'
-import loaderImage from '../assets/mala.png'
+import loaderImage from '../assets/tsatsa.png'
 
 export default function Loader() {
   return (

@@ -11,7 +11,13 @@ const MantrasIntro = () => {
       {/* if you want to have an image uncomment below */}
       {/* <img src={Logo} alt="Logo" className="intro_image" /> */}
       <p className="intro_text">
-        In September 2019, {<a href='https://lama-ole-nydahl.org/' target="_new">Lama Ole Nydahl</a>} announced the construction of the {<a href="https://www.diamondway.org/nrcstupa/" target="_new">
+        In September 2019,
+        {' '}
+        {<a href='https://lama-ole-nydahl.org/' target="_new">
+          Lama Ole Nydahl
+        </a>}{' '}
+        announced the construction of the
+        {' '}{<a href="https://www.diamondway.org/nrcstupa/" target="_new">
           NRC Stupa of Complete Victory
         </a>}: 
         “It will be a victory over everything negative, 
