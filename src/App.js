@@ -11,7 +11,8 @@ import Loader from './Components/Loader.jsx';
 
 function App() {
   const [allTsatsas, setAllTsatsas] = useState({})
-  const [inputData, setInputData] = useState()
+  const [totalCount, setTotalCount] = useState(0)
+  //const [inputData, setInputData] = useState()
   const [mode, setMode] = useState()
 
   const { width, height } = useWindowSize();
@@ -27,7 +28,8 @@ function App() {
           tinyStupa: resJson[0].tsa_tsa_3,
           longLife: resJson[0].tsa_tsa_4
         })
-        console.log(allTsatsas);
+        setTotalCount(Object.values(allTsatsas).reduce((acc, val) => acc + val, 0));
+        console.log(Object.values(allTsatsas));
       } catch (err) {
         console.error('Error fetching:', err)
       }
@@ -47,38 +49,38 @@ function App() {
     darkMode.addListener(setThemeMode)
   }, [mode])
 
-  const handleChange = event => {
-    setInputData(parseInt(event.target.value))
-  }
+  // const handleChange = event => {
+  //   setInputData(parseInt(event.target.value))
+  // }
 
-  const handleSubmit = event => {
-    let finalCount
-    event.preventDefault()
-    if (inputData === '' || inputData === undefined) {
-      alert('Please add number of tsatsas you made.')
-      return
-    }
-    if (parseInt(inputData) > allTsatsas) {
-      finalCount = 0
-    } else {
-      finalCount = allTsatsas - parseInt(inputData)
-    }
+  // const handleSubmit = event => {
+  //   let finalCount
+  //   event.preventDefault()
+  //   if (inputData === '' || inputData === undefined) {
+  //     alert('Please add number of tsatsas you made.')
+  //     return
+  //   }
+  //   if (parseInt(inputData) > allTsatsas) {
+  //     finalCount = 0
+  //   } else {
+  //     finalCount = allTsatsas - parseInt(inputData)
+  //   }
 
-    setAllTsatsas(finalCount)
+  //   setAllTsatsas(finalCount)
 
-    fetch(process.env.REACT_APP_AWS_DYNAMODB_URI, {
-      method: 'PUT',
-      body: JSON.stringify({
-        mantras_count: finalCount,
-        mantra_id: "07-06-2023-stupa-nrc"
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).catch(err => console.log('Error:', err))
+  //   fetch(process.env.REACT_APP_AWS_DYNAMODB_URI, {
+  //     method: 'PUT',
+  //     body: JSON.stringify({
+  //       mantras_count: finalCount,
+  //       mantra_id: "07-06-2023-stupa-nrc"
+  //     }),
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   }).catch(err => console.log('Error:', err))
 
-    setInputData()
-  }
+  //   setInputData()
+  // }
 
   return (
     <div
@@ -87,17 +89,24 @@ function App() {
     >
       <Header />
       <MantrasIntro />
-      {allTsatsas >= 0 ? (
+      
+      {totalCount >= 0 ? (
         <>
           <TsatsasAmount allTsatsas={allTsatsas} />
+          <TsatsasForm
+            allTsatsas={allTsatsas}
+            // inputData={inputData}
+            // handleChange={handleChange}
+            // handleSubmit={handleSubmit}
+          />
           
-          { allTsatsas > 0 && <TsatsasForm
+          {/* { allTsatsas > 0 && <TsatsasForm
             allTsatsas={allTsatsas}
             inputData={inputData}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
-          />}
-          <Confetti width={width} height={height} recycle={false} run={allTsatsas === 0} numberOfPieces={1500} />
+          />} */}
+          {/* <Confetti width={width} height={height} recycle={false} run={allTsatsas === 0} numberOfPieces={1500} /> */}
           <Footer />
         </>
       ) : (
