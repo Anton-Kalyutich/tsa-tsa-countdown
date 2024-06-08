@@ -10,7 +10,7 @@ import Footer from './Components/Footer.jsx';
 import Loader from './Components/Loader.jsx';
 
 function App() {
-  const [allTsatsas, setAllTsatsas] = useState()
+  const [allTsatsas, setAllTsatsas] = useState({})
   const [inputData, setInputData] = useState()
   const [mode, setMode] = useState()
 
@@ -21,7 +21,13 @@ function App() {
       try {
         const response = await fetch(process.env.REACT_APP_AWS_DYNAMODB_URI)
         const resJson = await response.json()
-        setAllTsatsas(resJson[0].mantras_count)
+        setAllTsatsas({
+          bigStupa: resJson[0].tsa_tsa_1,
+          smallStupa: resJson[0].tsa_tsa_2,
+          tinyStupa: resJson[0].tsa_tsa_3,
+          longLife: resJson[0].tsa_tsa_4
+        })
+        console.log(allTsatsas);
       } catch (err) {
         console.error('Error fetching:', err)
       }
