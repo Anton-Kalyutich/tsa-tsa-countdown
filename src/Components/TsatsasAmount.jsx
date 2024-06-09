@@ -12,57 +12,27 @@ function TsatsasAmount(props) {
 
   const formatValue = value => numberWithCommas(Number(value).toFixed())
 
-  return (
-    <>
-      <div className="tsatsas_count_container">
-        <div className='tsatsa_count_subcontainer'>
-          <p className="mantras_count_text"><strong>Big Stupa</strong></p>
-          <p className="mantras_count">
-            <AnimatedNumber
-              value={allTsatsas.bigStupa}
-              formatValue={formatValue}
-              duration={1000}
-            />
-          </p>
-          <p className="mantras_count_text">{allTsatsas.bigStupa > 0 ? "Left to Make" : "All Made"}</p>
-        </div>
-        
-        <div className='tsatsa_count_subcontainer'>
-        <p className="mantras_count_text"><strong>Small Stupa</strong></p>
-          <p className="mantras_count">
-          <AnimatedNumber
-            value={allTsatsas.smallStupa}
-            formatValue={formatValue}
-            duration={1000}
-          />
-          </p>
-          <p className="mantras_count_text">{allTsatsas.smallStupa > 0 ? "Left to Make" : "All Made"}</p>
-        </div>
-        <div className='tsatsa_count_subcontainer'>
-        <p className="mantras_count_text"><strong>Tiny Stupa</strong></p>
-          <p className="mantras_count">
-          <AnimatedNumber
-            value={allTsatsas.tinyStupa}
-            formatValue={formatValue}
-            duration={1000}
-          />
-          </p>
-          <p className="mantras_count_text">{allTsatsas.tinyStupa > 0 ? "Left to Make" : "All Made"}</p>
-        </div>
-        <div className='tsatsa_count_subcontainer'>
-        <p className="mantras_count_text"><strong>Long Life</strong></p>
-          <p className="mantras_count">
-          <AnimatedNumber
-            value={allTsatsas.longLife}
-            formatValue={formatValue}
-            duration={1000}
-          />
-          </p>
-          <p className="mantras_count_text">{allTsatsas.longLife > 0 ? "Left to Make" : "All Made"}</p>
-        </div>
-      </div>
-    </>
-  )
+  // Create a function to turn a key to title
+
+  let tsatsas = Object.keys(allTsatsas);
+  let listTsatsas = tsatsas.map(tsatsa =>
+    <div key={tsatsa} className='tsatsa_count_subcontainer'>
+      <p className="mantras_count_text"><strong>{tsatsa}</strong></p>
+      <p className="mantras_count">
+        <AnimatedNumber
+          value={allTsatsas[tsatsa]}
+          formatValue={formatValue}
+          duration={1000}
+        />
+      </p>
+      <p className="mantras_count_text">{allTsatsas[tsatsa] > 0 ? "Left to Make" : "All Made"}</p>
+    </div>
+);
+
+return (
+  <div className="tsatsas_count_container">{listTsatsas}</div>
+);
+
 }
 
 TsatsasAmount.propTypes = {

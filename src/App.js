@@ -9,6 +9,8 @@ import MantrasIntro from './Components/MantrasIntro.jsx';
 import Footer from './Components/Footer.jsx';
 import Loader from './Components/Loader.jsx';
 
+// 3. Make sure onle one type of tsatsa is updated per call to DB
+
 function App() {
   const [allTsatsas, setAllTsatsas] = useState({})
   const [inputNumber, setInputNumber] = useState()
@@ -22,11 +24,12 @@ function App() {
       try {
         const response = await fetch(process.env.REACT_APP_AWS_DYNAMODB_URI)
         const resJson = await response.json()
+
         setAllTsatsas({
-          bigStupa: resJson[0].tsa_tsa_1,
-          smallStupa: resJson[0].tsa_tsa_2,
-          tinyStupa: resJson[0].tsa_tsa_3,
-          longLife: resJson[0].tsa_tsa_4
+          bigStupa: resJson[0].bigStupa,
+          smallStupa: resJson[0].smallStupa,
+          tinyStupa: resJson[0].tinyStupa,
+          longLife: resJson[0].longLife
         })
       } catch (err) {
         console.error('Error fetching:', err)
@@ -76,7 +79,6 @@ function App() {
     fetch(process.env.REACT_APP_AWS_DYNAMODB_URI, {
       method: 'PUT',
       body: JSON.stringify({
-        mantra_id: "07-06-2023-stupa-nrc",
         tsa_tsa_1: allTsatsas.bigStupa,
         tsa_tsa_2: allTsatsas.smallStupa,
         mantras_count: totalCount,
