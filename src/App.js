@@ -11,8 +11,8 @@ import Loader from './Components/Loader.jsx';
 
 function App() {
   const [allTsatsas, setAllTsatsas] = useState({})
-  const [totalCount, setTotalCount] = useState(0)
-  //const [inputData, setInputData] = useState()
+  const [inputNumber, setInputNumber] = useState()
+  const [selectedType, setSelectedType] = useState()
   const [mode, setMode] = useState()
 
   const { width, height } = useWindowSize();
@@ -28,14 +28,14 @@ function App() {
           tinyStupa: resJson[0].tsa_tsa_3,
           longLife: resJson[0].tsa_tsa_4
         })
-        setTotalCount(Object.values(allTsatsas).reduce((acc, val) => acc + val, 0));
-        console.log(Object.values(allTsatsas));
       } catch (err) {
         console.error('Error fetching:', err)
       }
     }
     loadData()
   }, [])
+
+  let totalCount = Object.values(allTsatsas).reduce((a, b) => a + b, 0);
 
   useEffect(() => {
     const darkMode = window.matchMedia('(prefers-color-scheme: dark)')
@@ -49,39 +49,48 @@ function App() {
     darkMode.addListener(setThemeMode)
   }, [mode])
 
-  // const handleChange = event => {
-  //   setInputData(parseInt(event.target.value))
-  // }
+  const handleChangeNumber = event => {
+    setInputNumber(parseInt(event.target.value))
+  }
 
-  // const handleSubmit = event => {
-  //   let finalCount
-  //   event.preventDefault()
-  //   if (inputData === '' || inputData === undefined) {
-  //     alert('Please add number of tsatsas you made.')
-  //     return
-  //   }
-  //   if (parseInt(inputData) > allTsatsas) {
-  //     finalCount = 0
-  //   } else {
-  //     finalCount = allTsatsas - parseInt(inputData)
-  //   }
+  const handleChangeType = event => {
+    setSelectedType(event.target.value)
+  }
 
-  //   setAllTsatsas(finalCount)
+  const handleSubmit = event => {
+    let tsatsaCount
+    event.preventDefault()
+    if (inputNumber === '' || inputNumber === undefined) {
+      alert('Please add number of tsatsas you made.')
+      return
+    }
 
-  //   fetch(process.env.REACT_APP_AWS_DYNAMODB_URI, {
-  //     method: 'PUT',
-  //     body: JSON.stringify({
-  //       mantras_count: finalCount,
-  //       mantra_id: "07-06-2023-stupa-nrc"
-  //     }),
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   }).catch(err => console.log('Error:', err))
+    if (parseInt(inputNumber) > allTsatsas[selectedType]) {
+      tsatsaCount = 0
+    } else {
+      tsatsaCount = allTsatsas[selectedType] - parseInt(inputNumber)
+    }
 
-  //   setInputData()
-  // }
+    setAllTsatsas({...allTsatsas, [selectedType]: tsatsaCount})
 
+    fetch(process.env.REACT_APP_AWS_DYNAMODB_URI, {
+      method: 'PUT',
+      body: JSON.stringify({
+        mantra_id: "07-06-2023-stupa-nrc",
+        tsa_tsa_1: allTsatsas.bigStupa,
+        tsa_tsa_2: allTsatsas.smallStupa,
+        mantras_count: totalCount,
+        tsa_tsa_3: allTsatsas.tinyStupa,
+        tsa_tsa_4: allTsatsas.longLife,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).catch(err => console.log('Error:', err))
+
+    setInputNumber()
+  }
+  
   return (
     <div
       className="App"
@@ -93,20 +102,15 @@ function App() {
       {totalCount >= 0 ? (
         <>
           <TsatsasAmount allTsatsas={allTsatsas} />
-          <TsatsasForm
-            allTsatsas={allTsatsas}
-            // inputData={inputData}
-            // handleChange={handleChange}
-            // handleSubmit={handleSubmit}
-          />
           
-          {/* { allTsatsas > 0 && <TsatsasForm
+          { totalCount > 0 && <TsatsasForm
             allTsatsas={allTsatsas}
-            inputData={inputData}
-            handleChange={handleChange}
+            inputNumber={inputNumber}
+            handleChangeNumber={handleChangeNumber}
+            handleChangeType={handleChangeType}
             handleSubmit={handleSubmit}
-          />} */}
-          {/* <Confetti width={width} height={height} recycle={false} run={allTsatsas === 0} numberOfPieces={1500} /> */}
+          />}
+          <Confetti width={width} height={height} recycle={false} run={totalCount === 0} numberOfPieces={1500} />
           <Footer />
         </>
       ) : (
