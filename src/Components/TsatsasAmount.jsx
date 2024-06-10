@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import '../styles/MantrasAmount.css'
 
 function TsatsasAmount(props) {
-  const { allTsatsas } = props
+  const { allTsatsas } = props;
 
   const numberWithCommas = x => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -33,11 +33,11 @@ function TsatsasAmount(props) {
       </p>
       <p className="mantras_count_text">{allTsatsas[tsatsa] > 0 ? "Left to Make" : "All Made"}</p>
     </div>
-);
+  );
 
-return (
-  <div className="tsatsas_count_container">{listTsatsas}</div>
-);
+  return (
+    <div className="tsatsas_count_container">{listTsatsas}</div>
+  );
 
 }
 
