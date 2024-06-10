@@ -1,5 +1,5 @@
 .mantras-form-container {
-  margin-bottom: 36px;
+  margin: 36px;
   text-align: center;
 }
 
@@ -52,13 +52,26 @@ button:focus {
   justify-content: center;
 }
 
+@media only screen and (max-width: 768px) {
+  .mantras-form-input {
+    padding: 0 25px;
+    flex-direction: row;
+  }
+  input {
+    margin-left: 75px;
+  }
+}
+
 @media only screen and (max-width: 430px) {
   .mantras-form-input {
     padding: 0 25px;
     flex-direction: column;
   }
   input {
-    margin: 0 0 25px 0;
+    margin: 25px;
+  }
+  select {
+    margin: 25px;
   }
   button {
     background: rgb(118, 118, 118);

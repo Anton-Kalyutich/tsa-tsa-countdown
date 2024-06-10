@@ -23,7 +23,6 @@ function TsatsasForm(props) {
             <option value="tinyStupa">Tiny Stupa</option>
             <option value="longLife">Long Life</option>
           </select>
-      
           <button type="submit" >-</button>
         </div>
       </form>

@@ -9,7 +9,8 @@ import MantrasIntro from './Components/MantrasIntro.jsx';
 import Footer from './Components/Footer.jsx';
 import Loader from './Components/Loader.jsx';
 
-// Design is weird
+// Loading Component is not showing in the beginning
+// Fix Mantras Form
 
 function App() {
   const [allTsatsas, setAllTsatsas] = useState({})
