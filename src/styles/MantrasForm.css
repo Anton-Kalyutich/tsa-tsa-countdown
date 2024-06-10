@@ -58,7 +58,7 @@ button:focus {
     flex-direction: row;
   }
   input {
-    margin-left: 75px;
+    margin-left: 25px;
   }
 }
 
