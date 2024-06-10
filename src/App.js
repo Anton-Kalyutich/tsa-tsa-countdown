@@ -11,6 +11,8 @@ import Loader from './Components/Loader.jsx';
 
 // Why does Confetti fires at the start of the app?
 // Design is weird
+// Remove selection option if some tsatsas are done
+// When input > current number DB doesn't save it
 
 function App() {
   const [allTsatsas, setAllTsatsas] = useState({})
@@ -92,7 +94,7 @@ function App() {
 
     setInputNumber()
   }
-  
+
   let totalCount = Object.values(allTsatsas).reduce((a, b) => a + b, 0);
 
   return (
