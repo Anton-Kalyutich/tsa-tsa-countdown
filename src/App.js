@@ -9,9 +9,12 @@ import MantrasIntro from './Components/MantrasIntro.jsx';
 import Footer from './Components/Footer.jsx';
 import Loader from './Components/Loader.jsx';
 
+// Design is weird
+
 function App() {
-  const [allTsatsas, setAllTsatsas] = useState()
-  const [inputData, setInputData] = useState()
+  const [allTsatsas, setAllTsatsas] = useState({})
+  const [inputNumber, setInputNumber] = useState()
+  const [selectedType, setSelectedType] = useState()
   const [mode, setMode] = useState()
 
   const { width, height } = useWindowSize();
@@ -21,7 +24,13 @@ function App() {
       try {
         const response = await fetch(process.env.REACT_APP_AWS_DYNAMODB_URI)
         const resJson = await response.json()
-        setAllTsatsas(resJson[0].mantras_count)
+
+        setAllTsatsas({
+          bigStupa: resJson[0].bigStupa,
+          smallStupa: resJson[0].smallStupa,
+          tinyStupa: resJson[0].tinyStupa,
+          longLife: resJson[0].longLife
+        })
       } catch (err) {
         console.error('Error fetching:', err)
       }
@@ -41,29 +50,38 @@ function App() {
     darkMode.addListener(setThemeMode)
   }, [mode])
 
-  const handleChange = event => {
-    setInputData(parseInt(event.target.value))
+  const handleChangeNumber = event => {
+    setInputNumber(parseInt(event.target.value))
+  }
+
+  const handleChangeType = event => {
+    setSelectedType(event.target.value)
   }
 
   const handleSubmit = event => {
-    let finalCount
-    event.preventDefault()
-    if (inputData === '' || inputData === undefined) {
+    let tsatsaCount;
+    event.preventDefault();
+    if (inputNumber === '' || inputNumber === undefined) {
       alert('Please add number of tsatsas you made.')
       return
     }
-    if (parseInt(inputData) > allTsatsas) {
-      finalCount = 0
-    } else {
-      finalCount = allTsatsas - parseInt(inputData)
+    if (selectedType === '' || selectedType === undefined) {
+      alert('Please select the type of tsatsas you made.')
+      return
     }
 
-    setAllTsatsas(finalCount)
+    if (parseInt(inputNumber) > allTsatsas[selectedType]) {
+      tsatsaCount = 0
+    } else {
+      tsatsaCount = allTsatsas[selectedType] - parseInt(inputNumber)
+    }
+
+    setAllTsatsas({...allTsatsas, [selectedType]: tsatsaCount})
 
     fetch(process.env.REACT_APP_AWS_DYNAMODB_URI, {
       method: 'PUT',
       body: JSON.stringify({
-        mantras_count: finalCount,
+        [selectedType]: tsatsaCount,
         mantra_id: "07-06-2023-stupa-nrc"
       }),
       headers: {
@@ -71,8 +89,10 @@ function App() {
       }
     }).catch(err => console.log('Error:', err))
 
-    setInputData()
+    setInputNumber()
   }
+
+  let totalCount = Object.values(allTsatsas).reduce((a, b) => a + b, null);
 
   return (
     <div
@@ -81,17 +101,19 @@ function App() {
     >
       <Header />
       <MantrasIntro />
-      {allTsatsas >= 0 ? (
+      
+      {totalCount >= 0 ? (
         <>
           <TsatsasAmount allTsatsas={allTsatsas} />
           
-          { allTsatsas > 0 && <TsatsasForm
+          { totalCount > 0 && <TsatsasForm
             allTsatsas={allTsatsas}
-            inputData={inputData}
-            handleChange={handleChange}
+            inputNumber={inputNumber}
+            handleChangeNumber={handleChangeNumber}
+            handleChangeType={handleChangeType}
             handleSubmit={handleSubmit}
           />}
-          <Confetti width={width} height={height} recycle={false} run={allTsatsas === 0} numberOfPieces={1500} />
+          <Confetti width={width} height={height} recycle={false} run={totalCount === 0} numberOfPieces={1500} />
           <Footer />
         </>
       ) : (

@@ -23,12 +23,10 @@ const MantrasIntro = () => {
         “It will be a victory over everything negative, 
         a victory over things that nobody likes, mental disturbances, 
         and everything harmful."
-        In November 2022, Lama Ole confirmed the Stupa to be inaugurated in 2024. 
         He has invited Nedo Kuchung Rinpoche of the Karma Kagyu lineage to oversee its building and inauguration.
       </p>
-      <br></br>
       <p className="intro_text">
-        By August 2024, we need to produce approximately <strong>8000</strong> tsatsas,
+        We need to produce approximately <strong>8000</strong> tsatsas,
         and many friends across the United States (and the world) have already volunteered to help.
         To coordinate this noble effort we're presenting this tsatsas countdown. Enjoy!
       </p>

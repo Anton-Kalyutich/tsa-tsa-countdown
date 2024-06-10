@@ -14,7 +14,7 @@ textarea {
   outline: 0;
   font-family: inherit;
   font-weight: 300;
-  font-size: 150%;
+  font-size: 125%;
   background: none;
   border-width: 0 0 1px;
   -webkit-border-radius: 0;
@@ -52,7 +52,7 @@ button:focus {
   justify-content: center;
 }
 
-@media only screen and (max-width: 414px) {
+@media only screen and (max-width: 430px) {
   .mantras-form-input {
     padding: 0 25px;
     flex-direction: column;

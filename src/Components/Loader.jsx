@@ -5,7 +5,7 @@ import loaderImage from '../assets/tsatsa.png'
 export default function Loader() {
   return (
     <div className="mala_loader">
-      <img src={loaderImage} alt="Mala" className="mala_image" />
+      <img src={loaderImage} alt="Tsatsa" className="mala_image" />
     </div>
   )
 }
