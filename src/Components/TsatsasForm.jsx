@@ -16,15 +16,14 @@ function TsatsasForm(props) {
             onChange={handleChangeNumber}
             label="tsatsas input"
           />
-          <label>
-            Tsatsa Type:
-            <select name='selectedType' onChange={handleChangeType}>
-              <option value="bigStupa">Big Stupa</option>
-              <option value="smallStupa">Small Stupa</option>
-              <option value="tinyStupa">Tiny Stupa</option>
-              <option value="longLife">Long Life</option>
-            </select>
-          </label>
+          <select name='selectedType' onChange={handleChangeType}>
+            <option value="">Select type:</option>
+            <option value="bigStupa">Big Stupa</option>
+            <option value="smallStupa">Small Stupa</option>
+            <option value="tinyStupa">Tiny Stupa</option>
+            <option value="longLife">Long Life</option>
+          </select>
+      
           <button type="submit" >-</button>
         </div>
       </form>
@@ -34,7 +33,7 @@ function TsatsasForm(props) {
 
 TsatsasForm.propTypes = {
   inputData: PropTypes.number,
-  //handleSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   handleChangeNumber: PropTypes.func.isRequired
 }
 

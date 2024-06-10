@@ -9,7 +9,8 @@ import MantrasIntro from './Components/MantrasIntro.jsx';
 import Footer from './Components/Footer.jsx';
 import Loader from './Components/Loader.jsx';
 
-// 3. Make sure onle one type of tsatsa is updated per call to DB
+// Why does Confetti fires at the start of the app?
+// Design is weird
 
 function App() {
   const [allTsatsas, setAllTsatsas] = useState({})
@@ -38,8 +39,6 @@ function App() {
     loadData()
   }, [])
 
-  let totalCount = Object.values(allTsatsas).reduce((a, b) => a + b, 0);
-
   useEffect(() => {
     const darkMode = window.matchMedia('(prefers-color-scheme: dark)')
     function setThemeMode(e) {
@@ -61,10 +60,14 @@ function App() {
   }
 
   const handleSubmit = event => {
-    let tsatsaCount
-    event.preventDefault()
+    let tsatsaCount;
+    event.preventDefault();
     if (inputNumber === '' || inputNumber === undefined) {
       alert('Please add number of tsatsas you made.')
+      return
+    }
+    if (selectedType === '' || selectedType === undefined) {
+      alert('Please select the type of tsatsas you made.')
       return
     }
 
@@ -79,11 +82,8 @@ function App() {
     fetch(process.env.REACT_APP_AWS_DYNAMODB_URI, {
       method: 'PUT',
       body: JSON.stringify({
-        tsa_tsa_1: allTsatsas.bigStupa,
-        tsa_tsa_2: allTsatsas.smallStupa,
-        mantras_count: totalCount,
-        tsa_tsa_3: allTsatsas.tinyStupa,
-        tsa_tsa_4: allTsatsas.longLife,
+        [selectedType]: tsatsaCount,
+        mantra_id: "07-06-2023-stupa-nrc"
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -93,6 +93,8 @@ function App() {
     setInputNumber()
   }
   
+  let totalCount = Object.values(allTsatsas).reduce((a, b) => a + b, 0);
+
   return (
     <div
       className="App"
