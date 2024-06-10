@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import '../styles/MantrasForm.css'
 
 function TsatsasForm(props) {
-  const { inputData, handleSubmit, handleChange } = props
-  console.log(inputData)
+  const { inputNumber, handleChangeNumber, handleChangeType, handleSubmit } = props
   return (
     <div className="mantras-form-container">
       <form autoComplete="off" onSubmit={handleSubmit} className="mantras_form">
@@ -13,10 +12,18 @@ function TsatsasForm(props) {
             type="number"
             name="tsatsas_count"
             placeholder="Number"
-            value={inputData || ''}
-            onChange={handleChange}
+            value={inputNumber || ''}
+            onChange={handleChangeNumber}
             label="tsatsas input"
           />
+          <select name='selectedType' onChange={handleChangeType}>
+            <option value="">Select type:</option>
+            <option value="bigStupa">Big Stupa</option>
+            <option value="smallStupa">Small Stupa</option>
+            <option value="tinyStupa">Tiny Stupa</option>
+            <option value="longLife">Long Life</option>
+          </select>
+      
           <button type="submit" >-</button>
         </div>
       </form>
@@ -27,7 +34,7 @@ function TsatsasForm(props) {
 TsatsasForm.propTypes = {
   inputData: PropTypes.number,
   handleSubmit: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired
+  handleChangeNumber: PropTypes.func.isRequired
 }
 
 export default TsatsasForm

@@ -1,5 +1,13 @@
-.mantras_count_container {
-  margin-bottom: 36px;
+.tsatsas_count_container {
+  margin: 36px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tsatsa_count_subcontainer {
+  flex: 1; /* Each item will take up equal space */
+  text-align: center;
+  margin: 10;
 }
 
 .mantras_count {
@@ -16,8 +24,23 @@
   font-weight: 200;
 }
 
-@media only screen and (max-width: 414px) {
+/* @media only screen and (max-width: 414px) {
   .mantras_count {
     font-size: 20vw;
   }
+} */
+
+@media (max-width: 600px) {
+  .tsatsas_count_container {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+  }
+
+  .tsatsa_count_subcontainer {
+    flex: none; /* Reset flex property */
+    width: 100%; /* Ensure items take full width */
+  }
+  .mantras_count {
+    font-size: 20vw;
+}
 }
