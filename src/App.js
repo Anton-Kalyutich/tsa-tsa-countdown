@@ -27,10 +27,10 @@ function App() {
         const resJson = await response.json()
 
         setAllTsatsas({
-          bigStupa: resJson[0].bigStupa,
-          smallStupa: resJson[0].smallStupa,
-          tinyStupa: resJson[0].tinyStupa,
-          longLife: resJson[0].longLife
+          bigStupa: resJson.bigStupa,
+          smallStupa: resJson.smallStupa,
+          tinyStupa: resJson.tinyStupa,
+          longLife: resJson.longLife
         })
       } catch (err) {
         console.error('Error fetching:', err)
@@ -83,7 +83,7 @@ function App() {
       method: 'PUT',
       body: JSON.stringify({
         [selectedType]: tsatsaCount,
-        mantra_id: "07-06-2023-stupa-nrc"
+        mantra_id: "stupa-tsa-tsa"
       }),
       headers: {
         'Content-Type': 'application/json'

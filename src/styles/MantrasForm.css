@@ -59,6 +59,10 @@ button:focus {
   }
   input {
     margin-left: 50px;
+    max-width: 200x
+  }
+  select {
+    max-width: 200px;
   }
 }
 
