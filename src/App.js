@@ -103,7 +103,7 @@ function App() {
       <Header />
       <MantrasIntro />
       
-      {totalCount >= 0 ? (
+      {totalCount !== null ? (
         <>
           <TsatsasAmount allTsatsas={allTsatsas} />
           
