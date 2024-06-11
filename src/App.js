@@ -115,11 +115,11 @@ function App() {
             handleSubmit={handleSubmit}
           />}
           <Confetti width={width} height={height} recycle={false} run={totalCount === 0} numberOfPieces={1500} />
-          <Footer />
         </>
       ) : (
         <Loader />
       )}
+      <Footer />
     </div>
   )
 }
