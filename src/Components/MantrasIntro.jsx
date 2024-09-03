@@ -26,7 +26,7 @@ const MantrasIntro = () => {
         He has invited Nedo Kuchung Rinpoche of the Karma Kagyu lineage to oversee its building and inauguration.
       </p>
       <p className="intro_text">
-        We need to produce approximately <strong>8000</strong> tsatsas,
+        We need to produce approximately <strong>7000</strong> tsatsas,
         and many friends across the United States (and the world) have already volunteered to help.
         To coordinate this noble effort we're presenting this tsatsas countdown. Enjoy!
       </p>
